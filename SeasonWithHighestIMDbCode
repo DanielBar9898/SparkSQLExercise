@@ -1,0 +1,53 @@
+# Path to episodes CSV
+episodes_csv_path = r"C:\Users\DanielBA\Desktop\pyspark\simpsons\simpsons_episodes.csv"
+
+# Load episodes CSV
+df_episodes = spark.read.format("csv") \
+    .option("header", "true") \
+    .option("multiLine", True) \
+    .option("escape", '"') \
+    .load(episodes_csv_path)
+
+# Create temporary table
+df_episodes.createOrReplaceTempView("episodes_table")
+
+# Print schema and first 5 rows
+df_episodes.printSchema()
+df_episodes.show(5, truncate=False)
+
+
+# Seasons with highest average IMDb rating
+spark.sql("""
+SELECT season, COUNT(*) AS num_episodes, AVG(CAST(imdb_rating AS FLOAT)) AS avg_rating
+FROM episodes_table
+GROUP BY season
+ORDER BY avg_rating DESC
+""").show()
+
+
+RESULTS:
++------+------------+------------------+
+|season|num_episodes|        avg_rating|
++------+------------+------------------+
+|     5|          22| 8.336363554000854|
+|     7|          25|  8.32400001525879|
+|     6|          25| 8.312000102996826|
+|     4|          22| 8.268181844191117|
+|     8|          25|              8.22|
+|     3|          24| 8.154166638851166|
+|     2|          22| 8.040909073569559|
+|     9|          25| 7.844000053405762|
+|     1|          13|  7.80769238105187|
+|    10|          23| 7.569565233976944|
+|    12|          21| 7.361904780069987|
+|    11|          22| 7.290909138592807|
+|    13|          22| 7.140909043225375|
+|    14|          22| 7.077272761951793|
+|    15|          22| 7.045454545454546|
+|    16|          21|7.0428571701049805|
+|    18|          22| 7.000000043348833|
+|    19|          20| 6.934999942779541|
+|    20|          21| 6.895238058907645|
+|    17|          22| 6.863636341961947|
++------+------------+------------------+
+only showing top 20 rows
