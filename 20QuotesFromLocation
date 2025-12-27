@@ -1,0 +1,41 @@
+# Create locations table from lines_table
+df_locations = df_lines.select("location_id", "raw_location_text").dropDuplicates()
+df_locations.createOrReplaceTempView("locations_table")
+
+
+# 20 quotes from locations containing "Jerusalem" (case-insensitive)
+spark.sql("""
+SELECT l.raw_text, loc.raw_location_text
+FROM lines_table l
+JOIN locations_table loc
+  ON l.location_id = loc.location_id
+WHERE LOWER(loc.raw_location_text) LIKE '%jerusalem%'
+LIMIT 20
+""").show(truncate=False)
+
+RESULTS:
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+
+|raw_text                                                                                                                                                                                  |raw_location_text     |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+
+|(JERUSALEM ROYAL PALACE: ext. jerusalem royal palace - plaza - day)                                                                                                                       |JERUSALEM ROYAL PALACE|
+|Bart Simpson: I'm bored. Send in my jester.                                                                                                                                               |JERUSALEM ROYAL PALACE|
+|Krusty the Clown: Hey, hey, King David! (GOES INTO ROUTINE) Ha, ha, how ya doin'? Now I'm not saying Jezebel's easy, but before she moved to Sodom, it was known for its pottery. (LAUGHS)|JERUSALEM ROYAL PALACE|
+|Bart Simpson: What else you got?                                                                                                                                                          |JERUSALEM ROYAL PALACE|
+|Krusty the Clown: Ahh... yeah... well, wait a minute, I got somethin' on the Canaanites. (MOAN) They are so stupid.                                                                       |JERUSALEM ROYAL PALACE|
+|Methuselah Grampa: (PAINED SOUNDS)                                                                                                                                                        |JERUSALEM ROYAL PALACE|
+|Bart Simpson: Methuselah, my oldest friend. Who did this to you?                                                                                                                          |JERUSALEM ROYAL PALACE|
+|Methuselah Grampa: (WEAK, PAINED GROAN) It was... Goliath.                                                                                                                                |JERUSALEM ROYAL PALACE|
+|Bart Simpson: (PUZZLED) But Goliath is dead. I smote him myself. I smoted him good.                                                                                                       |JERUSALEM ROYAL PALACE|
+|Methuselah Grampa: No, it was his son, Goliath Two.                                                                                                                                       |JERUSALEM ROYAL PALACE|
+|Bart Simpson: (MELODRAMATIC) Nooo... (THEN, STEELY) Goliath Two is gonna pay. And this time it's biblical.                                                                                |JERUSALEM ROYAL PALACE|
+|(Jerusalem: EXT. JERUSALEM - FIELD OF BATTLE)                                                                                                                                             |Jerusalem             |
+|Bart Simpson: (COCKY) I'll just give Goliath Two the ol' rock to the head, applause applause, "ya gotta believe in yourself, stay in school," and we're outta here.                       |Jerusalem             |
+|Santa's Little Helper: (DOPEY "DAVEY AND GOLIATH" VOICE) I don't know, Davey.                                                                                                             |Jerusalem             |
+|Bart Simpson: (ANNOYED) Quiet, you.                                                                                                                                                       |Jerusalem             |
+|Santa's Little Helper: Oh, you've gotten pretty fat, Davey...                                                                                                                             |Jerusalem             |
+|Goliath/nelson: (OMINOUS) Let's get it on...                                                                                                                                              |Jerusalem             |
+|Santa's Little Helper: See ya later, Davey.                                                                                                                                               |Jerusalem             |
+|Bart Simpson: You killed my best friend.                                                                                                                                                  |Jerusalem             |
+|Crowd: (EXCITED "WOOO")                                                                                                                                                                   |Jerusalem             |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+
