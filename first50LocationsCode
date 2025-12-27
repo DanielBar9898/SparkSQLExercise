@@ -5,3 +5,60 @@ FROM lines_table
 WHERE LOWER(raw_location_text) LIKE '%springfield%'
 LIMIT 50
 """).show(50, False)
+
+
+RESULTS:
+
+raw_location_text                      |
++---------------------------------------+
+|Springfield Police Station             |
+|Springfield YMCA                       |
+|SPRINGFIELD REPUBLICAN PARTY CASTLE    |
+|Springfield                            |
+|Springfield Pond                       |
+|Springfield Mall                       |
+|SPRINGFIELD ANIMAL REFUGE              |
+|Springfield Community Theater          |
+|SPRINGFIELD - THE PAST                 |
+|PRIMORDIAL SPRINGFIELD                 |
+|SPRINGFIELD HOSPITAL HALLWAY           |
+|SPRINGFIELD ELEMENTARY SCHOOL BUS      |
+|Springfield Elementary School Band Room|
+|Springfield Opry House                 |
+|Springfield Swap Meet                  |
+|SPRINGFIELD PIER                       |
+|Springfield Air and Space Museum       |
+|Springfield Trade Center               |
+|DREAMLIKE SUBURBAN SPRINGFIELD STREET  |
+|SPRINGFIELD MONUMENT PARK              |
+|Lake Springfield                       |
+|SPRINGFIELD BATTING CAGE               |
+|Springfield Coast Highway              |
+|STREET NEXT TO SPRINGFIELD ELEMENTARY  |
+|SPRINGFIELD - EVENING                  |
+|WINTRY SPRINGFIELD STREET              |
+|Springfield Wall of Fame               |
+|Springfield Shopper                    |
+|Springfield Prison                     |
+|Springfield Buddhist Temple            |
+|SPRINGFIELD STATE BUILDING             |
+|Springfield - Homer's Boyhood          |
+|SOARIN' OVER SPRINGFIELD RIDE          |
+|Springfield Public Beach               |
+|TASTE OF SPRINGFIELD                   |
+|Springfield Pharmaceuticals            |
+|Springfield Elementary School Grounds  |
+|Cliff Overlooking Springfield Harbor   |
+|Springfield Mall Parking Lot           |
+|FIELDS AROUND SPRINGFIELD              |
+|SPRINGFIELD TIRE FIRE                  |
+|PALM SPRINGFIELD                       |
+|SPRINGFIELD PLAYGROUND                 |
+|SPRINGFIELD - DOWNTOWN                 |
+|SPRINGFIELD TV STORE                   |
+|Springfield Minimum Security Prison    |
+|Springfield Aquarium                   |
+|Springfield National Forest            |
+|SPRINGFIELD GYM                        |
+|SPRINGFIELD MARINE PARK                |
++---------------------------------------+
