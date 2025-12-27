@@ -1,0 +1,36 @@
+# First 20 most used locations
+spark.sql("""
+SELECT raw_location_text, COUNT(*) AS lines_count
+FROM lines_table
+GROUP BY raw_location_text
+ORDER BY lines_count DESC
+LIMIT 20
+""").show(truncate=False)
+
+RSULTS:
+
++-------------------------------+-----------+
+|raw_location_text              |lines_count|
++-------------------------------+-----------+
+|Simpson Home                   |35059      |
+|Springfield Elementary School  |7092       |
+|Moe's Tavern                   |4628       |
+|Springfield Nuclear Power Plant|3594       |
+|Kwik-E-Mart                    |1476       |
+|First Church of Springfield    |1416       |
+|Simpson Living Room            |1378       |
+|Springfield Street             |1334       |
+|Springfield                    |1314       |
+|Simpson Car                    |1239       |
+|Flanders Home                  |1166       |
+|Street                         |1124       |
+|Springfield Town Hall          |1103       |
+|Springfield Retirement Castle  |1049       |
+|Burns Manor                    |998        |
+|Springfield Mall               |833        |
+|Simpson Kitchen                |816        |
+|Courtroom                      |813        |
+|Bart's Treehouse               |767        |
+|Bart's Bedroom                 |766        |
++-------------------------------+-----------+
+
